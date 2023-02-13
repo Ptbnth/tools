@@ -1,3 +1,4 @@
+//bio用
 setInterval(function (){
     function getCookieValue(key) {
         const cookies = document.cookie.split(';');
