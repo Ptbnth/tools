@@ -1,4 +1,5 @@
 //bio用
+window.alert('変更を開始します');
 setInterval(function (){
     function getCookieValue(key) {
         const cookies = document.cookie.split(';');
