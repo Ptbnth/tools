@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>暗号化</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>暗号化</h1>
+    <label for="inputText"><b>文字列を入力</b></label><br>
+    <input type="text" id="inputText"><br>
+    <button onclick="ango()" class="startButton">暗号化</button>
+  </div>
+  <script>
+    function ango() {
+      function crypto(str){
+        return Array.from(str).map(char=>{
+          return char.codePointAt(0)+100;
+        }).join("/");}prompt("",crypto(document.getElementById("inputText").value))
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>復号化</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>復号化</h1>
+    <label for="inputText"><b>暗号を入力</b></label><br>
+    <input type="text" id="inputText"><br>
+    <button onclick="hukuge()" class="startButton">復号化</button>
+  </div>
+  <script>
+    function hukuge() {
+      (function decrypto(str){
+        prompt("",String.fromCodePoint(...str.split("/").map(code=>Number(code)-100))) })(document.getElementById("inputText").value)
+    }
+  </script>
+</body>
+</html>

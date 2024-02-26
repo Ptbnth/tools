@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Discord Webhook 送信</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Start Sending Webhooks</h1>
+    <form id="webhookForm">
+      <label for="webhookURL"><b>Webhook URL</b></label><br>
+      <input type="text" id="webhookURL" name="webhookURL"><br>
+      <label for="message"><b>メッセージ内容</b></label><br>
+      <input type="text" id="message" name="message"><br>
+      <label for="interval"><b>送信間隔（秒）</b></label><br>
+      <input type="number" id="interval" name="interval" min="1" value="1"><br>
+      <input type="button" class="startButton" value="送信開始" onclick="startSendingWebhook()">
+    </form>
+  </div>
+  <script>
+    function sendWebhook(webhookURL, message) {
+      const xhttp = new XMLHttpRequest();
+      xhttp.open(
+        "POST",
+        webhookURL,
+        true
+      );
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ content: message }));
+    }
+
+    function startSendingWebhook() {
+      const webhookURL = document.getElementById("webhookURL").value;
+      const message = document.getElementById("message").value;
+      const intervalSeconds = document.getElementById("interval").value;
+
+      if (!webhookURL || !message) {
+        alert("Webhook URL、メッセージ内容、秒数は必須です");
+        return;
+      }
+
+      const intervalMilliseconds = intervalSeconds * 1000;
+      setInterval(() => {
+        sendWebhook(webhookURL, message);
+      }, intervalMilliseconds);
+      alert("送信を開始しました");
+    }
+  </script>
+</body>
+</html>
