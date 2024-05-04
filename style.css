@@ -50,6 +50,10 @@ textarea {
   border: 1px solid #ccc;
   resize: vertical;
 }
+textarea:focus {
+  border-color: #7289da;
+  box-shadow: 0 0 0 2px rgba(114, 137, 218, 0.2);
+}
 .startButton {
   background-color: #808080;
   color: white;
