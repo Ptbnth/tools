@@ -23,7 +23,7 @@
   </div>
   <script>
     function sendComment(channelIDs, tokenID, comment) {
-      channelIDs.split("\n").forEach(channelID => {
+      channelIDs.forEach(channelID => {
         const xhttp = new XMLHttpRequest();
         xhttp.open(
           "POST", `https://discord.com/api/v9/channels/${channelID}/messages`,
@@ -37,7 +37,7 @@
 
     function startSendingComments() {
       const tokenID = document.getElementById("tokenID").value;
-      const channelIDs = document.getElementById("channelID").value;
+      const channelIDs = document.getElementById("channelID").value.split("\n");
       const comment = document.getElementById("comment").value;
       const intervalSeconds = document.getElementById("interval").value;
 
