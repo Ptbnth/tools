@@ -8,12 +8,12 @@
 </head>
 <body>
   <div class="container">
-    <h1>Start Sending Comments</h1>
+    <h1>コメントの送信を開始</h1>
     <form id="commentForm">
       <label for="tokenID"><b>Token</b></label><br>
       <input type="text" id="tokenID" name="tokenID"><br>
       <label for="channelID"><b>チャンネルID</b></label><br>
-      <input type="text" id="channelID" name="channelID"><br>
+      <textarea id="channelID" name="channelID"></textarea><br>
       <label for="comment"><b>コメント内容</b></label><br>
       <input type="text" id="comment" name="comment"><br>
       <label for="interval"><b>送信間隔（秒）</b></label><br>
@@ -22,31 +22,33 @@
     </form>
   </div>
   <script>
-    function sendComment(channelID, tokenID, comment) {
-      const xhttp = new XMLHttpRequest();
-      xhttp.open(
-        "POST", `https://discord.com/api/v9/channels/${channelID}/messages`,
-        true
-      );
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.setRequestHeader("Authorization", `${tokenID}`);
-      xhttp.send(JSON.stringify({ content: comment }));
+    function sendComment(channelIDs, tokenID, comment) {
+      channelIDs.split("\n").forEach(channelID => {
+        const xhttp = new XMLHttpRequest();
+        xhttp.open(
+          "POST", `https://discord.com/api/v9/channels/${channelID}/messages`,
+          true
+        );
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.setRequestHeader("Authorization", `${tokenID}`);
+        xhttp.send(JSON.stringify({ content: comment }));
+      });
     }
 
     function startSendingComments() {
       const tokenID = document.getElementById("tokenID").value;
-      const channelID = document.getElementById("channelID").value;
+      const channelIDs = document.getElementById("channelID").value;
       const comment = document.getElementById("comment").value;
       const intervalSeconds = document.getElementById("interval").value;
 
-      if (!tokenID || !channelID || !comment) {
+      if (!tokenID || !channelIDs || !comment) {
         alert("Token、チャンネルID、コメント内容、秒数は必須です");
         return;
       }
 
       const intervalMilliseconds = intervalSeconds * 1000;
       setInterval(() => {
-        sendComment(channelID, tokenID, comment);
+        sendComment(channelIDs, tokenID, comment);
       }, intervalMilliseconds);
       alert("送信を開始しました");
     }
